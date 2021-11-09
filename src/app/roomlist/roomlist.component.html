@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <h3>{{nickname}} <button mat-flat-button (click)="logout()"><mat-icon>logout</mat-icon></button></h3></mat-toolbar>
+<mat-card>
+  <mat-card-title><h2>Room List</h2></mat-card-title>
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row"><h5>Add New room</h5>
+    <button mat-flat-button color="primary" [routerLink]="['/addroom']"><mat-icon>add</mat-icon></button> 
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="rooms" class="example-table"
+           matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
+
+      <!-- Room Name Column -->
+      <ng-container matColumnDef="roomname">
+        
+        <th mat-header-cell *matHeaderCellDef>Room List Names</th>
+       
+        <td mat-cell *matCellDef="let row">{{row.roomname}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterChatRoom(row.roomname)"></tr>
+    </table>
+  </div>
+</mat-card>
+
+</div>
