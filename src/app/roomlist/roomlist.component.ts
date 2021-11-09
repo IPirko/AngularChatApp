@@ -7,9 +7,9 @@ export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
 
   snapshot.forEach((childSnapshot: any) => {
-      const item = childSnapshot.val();
-      item.key = childSnapshot.key;
-      returnArr.push(item);
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
   });
 
   return returnArr;
@@ -40,12 +40,15 @@ export class RoomlistComponent implements OnInit {
   }
 
   enterChatRoom(roomname: string) {
-    const chat = { roomname: '', nickname: '', message: '', date: '', type: '' };
-    chat.roomname = roomname;
-    chat.nickname = this.nickname;
-    chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} enter the room`;
-    chat.type = 'join';
+    const chat = { 
+    roomname: roomname,
+    nickname: this.nickname,
+    date: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss'),
+    message: `${this.nickname} enter the room`,
+    type: 'join'
+  }
+
+
     const newMessage = firebase.database().ref('chats/').push();
     newMessage.set(chat);
 
@@ -55,12 +58,13 @@ export class RoomlistComponent implements OnInit {
       const user = roomuser.find(x => x.nickname === this.nickname);
       if (user !== undefined) {
         const userRef = firebase.database().ref('roomusers/' + user.key);
-        userRef.update({status: 'online'});
+        userRef.update({ status: 'online' });
       } else {
-        const newroomuser = { roomname: '', nickname: '', status: '' };
-        newroomuser.roomname = roomname;
-        newroomuser.nickname = this.nickname;
-        newroomuser.status = 'online';
+        const newroomuser = { 
+        roomname: roomname,
+        nickname: this.nickname,
+        status: 'online'
+        }
         const newRoomUser = firebase.database().ref('roomusers/').push();
         newRoomUser.set(newroomuser);
       }

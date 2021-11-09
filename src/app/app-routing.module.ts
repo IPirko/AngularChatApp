@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'roomlist', component: RoomlistComponent },
   { path: 'addroom', component: AddroomComponent },
   { path: 'chatroom/:roomname', component: ChatroomComponent },
-  { path: '',
+  {
+    path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   }

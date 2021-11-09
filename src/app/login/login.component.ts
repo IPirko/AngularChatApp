@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/roomlist']);
     }
     this.loginForm = this.formBuilder.group({
-      'nickname' : [null, Validators.required]
+      'nickname': [null, Validators.required]
     });
   }
   /*On Form Submit login function*/
